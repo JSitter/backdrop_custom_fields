@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ * Install, update, and uninstall custom global fields
+ * Implements hook_field_schema()
+ */
+function sasarchive_global_fields($field) {
+    $columns = array(
+        'year' => array('type' => 'int', 'length' => 4, 'not null' => FALSE),
+    );
+    $indexes = array(
+        'year' => array('year'),
+    );
+    return array(
+        'columns' => $columns,
+        'indexes' => $indexes,
+    );
+}
