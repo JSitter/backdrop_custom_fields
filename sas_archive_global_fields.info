@@ -1,0 +1,4 @@
+name = SAS Archive Global Fields
+description = Fields used by multiple content types
+version = BACKDROP_VERSION 
+backdrop = 1.x
