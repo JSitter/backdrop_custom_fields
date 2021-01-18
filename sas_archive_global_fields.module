@@ -108,3 +108,41 @@ function sas_archive_global_fields_field_widget_form(&$form, &$form_state, $fiel
     $element['year'] = $widget;
     return $element;
 }
+
+/**
+ * Validate Year
+ */
+function sas_archive_global_fields_year_validate($element, &$form_state) {
+    // @todo: Validate year field
+}
+
+/**
+ * Implements hook_field_widget_error()
+ */
+function sas_archive_global_fields_widget_error($element, $error, $form, &$form_state) {
+    switch($error['error']) {
+        case 'invalid_year':
+            form_error($element, $error['message']);
+            break;
+    }
+}
+
+/**
+ * Implements hook_menu()
+ * Example page
+ */
+function sas_archive_global_fields_menu() {
+    $items['examples/year_field'] = array(
+        'title' => 'Year Example',
+        'page callback' => '_field_year_example_page',
+        'access callback' => TRUE,
+        );
+    return $items;
+}
+
+/**
+ *  Simple example page
+ */
+function _field_year_example_page() {
+    return t("This is an example page for the year field");
+}
