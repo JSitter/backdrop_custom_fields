@@ -6,14 +6,15 @@
 
  /**
   * Implements hook_field_info()
+  * Provides field description
   */
   function sas_archive_global_fields_field_info() {
       return array(
-          'year' => array(
-              'label' => t('Content Year'),
-              'description' => t('Year content is about.'),
-              'default_widget' => 'field_example_3text',
-              'default_formatter' => 'field_example_simple_text',
+          'field_year' => array(
+              'label' => t('Year'),
+              'description' => t('Content year.'),
+              'default_widget' => 'year_widget',
+              'default_formatter' => 'year_formatter',
           ),
         );
   }
@@ -24,7 +25,7 @@
   function sas_archive_global_fields_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
       foreach ($items as $delta => $item) {
           if(!empty($item['year'])) {
-              if (!preg_match('@[0-9]{4}', $item['year'])) {
+              if (!preg_match('@[0-9]{4}$@', $item['year'])) {
                     $errors[$field['field_name']][$langcode][$delta][] = array(
                         'error' => 'year_invalid',
                         'message' => t('Invalid year.'),
@@ -47,7 +48,7 @@ function sas_archive_global_fields_field_is_empty($item, $field) {
 function sas_archive_global_fields_field_formatter_info() {
     return array(
         // This formatter allows input of year as text.
-        'field_example_simple_text' => array(
+        'year_formatter' => array(
           'label' => t('Simple text-based formatter'),
           'field types' => array('field_year'),
         ),
@@ -61,8 +62,8 @@ function sas_archive_global_fields_field_formatter_view($entity_type, $entity, $
     $element = array();
 
     switch ($display['type']) {
-        // This formatter simply outputs the field as text and with a color.
-        case 'year_view':
+        // This formatter simply outputs the field as text and with year.
+        case 'year_formatter':
           foreach ($items as $delta => $item) {
             $element[$delta] = array(
               '#type' => 'head_tag',
